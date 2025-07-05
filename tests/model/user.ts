@@ -9,7 +9,7 @@ export type User = {
     state: string;
     zipCode: string;
     phoneNumber: string;
-    socialSecurityNumber: number;
+    socialSecurityNumber: string;
     userName: string;
     password: string;
     confirmPassword: string;
@@ -17,7 +17,8 @@ export type User = {
 };
 
 export function createUser() : User {
-    const user = { 
+    const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
+    const user = {
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
         address: faker.location.streetAddress(),
@@ -25,8 +26,8 @@ export function createUser() : User {
         state: faker.location.state(),
         zipCode: faker.location.zipCode(),
         phoneNumber: faker.phone.number(),
-        socialSecurityNumber: faker.number.int({ min: 100000000, max: 999999999 }),
-        userName: faker.internet.displayName(),
+        socialSecurityNumber: faker.number.int({ min: 100000000, max: 999999999 }).toString(),
+        userName: faker.internet.displayName()+`_${timestamp}`,
         password: faker.internet.password(),
         confirmPassword: faker.internet.password()
     }
