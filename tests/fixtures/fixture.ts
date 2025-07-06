@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test'
+import { test as base } from '@playwright/test'
 import { PageManager } from "../pageObjects/pagemanager"
 import { createUser, User } from '../model/user'
 

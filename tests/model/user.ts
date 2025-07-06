@@ -16,9 +16,15 @@ export type User = {
 
 };
 
-export function createUser() : User {
-    // Generate a unique timestamp to avoid duplicate usernames, however, this might not be necessary for parabank website
-    //const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
+// Function to generate a random number between min and max (inclusive), to avoid possible username repetition
+// ISO Timestamp seems to not be allowed or not working as expected, page always returns that the username is already taken
+export function getRandomNumber(min: number = 1, max: number = 1000): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to create a new user with random data using Faker, adding a random number to the username to avoid repetition
+export function createUser() : User { 
+    const randomNumber = getRandomNumber();
     const user = {
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
@@ -28,9 +34,8 @@ export function createUser() : User {
         zipCode: faker.location.zipCode(),
         phoneNumber: faker.phone.number(),
         socialSecurityNumber: faker.number.int({ min: 100000000, max: 999999999 }).toString(),
-        // Uncomment the next line to generate a unique username with timestamp
-        //userName: faker.internet.displayName()+`_${timestamp}`,
-        userName: faker.internet.displayName(),
+        //userName: faker.internet.displayName(),
+        userName: faker.internet.displayName()+`${randomNumber}`,
         password: faker.internet.password(),
         confirmPassword: faker.internet.password()
     }
