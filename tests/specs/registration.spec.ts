@@ -12,5 +12,7 @@ test("Registration, logout and login", async ({ pageManager }) => {
 
     const newUser = createUser();
     await pageManager.onRegisterForm().fillForm(newUser);
-
+    await pageManager.onNavigation().logout();
+    await pageManager.onNavigation().login(newUser);
+    
 });

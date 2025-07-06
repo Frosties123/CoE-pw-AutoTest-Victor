@@ -17,7 +17,8 @@ export type User = {
 };
 
 export function createUser() : User {
-    const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
+    // Generate a unique timestamp to avoid duplicate usernames, however, this might not be necessary for parabank website
+    //const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '');
     const user = {
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
@@ -27,7 +28,9 @@ export function createUser() : User {
         zipCode: faker.location.zipCode(),
         phoneNumber: faker.phone.number(),
         socialSecurityNumber: faker.number.int({ min: 100000000, max: 999999999 }).toString(),
-        userName: faker.internet.displayName()+`_${timestamp}`,
+        // Uncomment the next line to generate a unique username with timestamp
+        //userName: faker.internet.displayName()+`_${timestamp}`,
+        userName: faker.internet.displayName(),
         password: faker.internet.password(),
         confirmPassword: faker.internet.password()
     }
